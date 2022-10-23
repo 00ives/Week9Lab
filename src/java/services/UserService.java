@@ -39,4 +39,10 @@ public class UserService {
     get and it takes in an int
     */
 
+    public void update(String email, String firstName, String lastName, String password, int role) throws Exception {
+        User user = new User(email, firstName, lastName, password, role);
+        UserDB userDB = new UserDB();
+        userDB.update(user);
+    }
+
 }

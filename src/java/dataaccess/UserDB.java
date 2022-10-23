@@ -129,14 +129,15 @@ public class UserDB {
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
-        String sql = "UPDATE user SET email = ?, first_name = ?, last_name = ?, password = ?, role = ?";
+        String sql = "UPDATE user SET first_name = ?, last_name = ?, password = ?, role = ? WHERE email = ?";
         
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(2, user.getFirstName());
-            ps.setString(3, user.getLastName());
-            ps.setString(4, user.getPassword());
-            ps.setInt(5, user.getRole());
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setString(3, user.getPassword());
+            ps.setInt(4, user.getRole());
+            ps.setString(5, user.getEmail());
             ps.executeUpdate();
             /*
             also need to change the role here to set it in 
