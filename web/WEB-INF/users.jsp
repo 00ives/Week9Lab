@@ -62,14 +62,14 @@
                 </c:when>
 
                 <c:otherwise>
-                    Email: <input type="text" name="emailInput">
+                    Email: <input type="text" name="emailInput" value="${email}">
                     <br>
                 </c:otherwise>
             </c:choose>
 
-            First name: <input type="text" name="firstNameInput">
+            First name: <input type="text" name="firstNameInput" value="${firstName}">
             <br>
-            Last name: <input type="text" name="lastNameInput">
+            Last name: <input type="text" name="lastNameInput" value="${lastName}">
             <br>
             Password: <input type="password" name="passwordInput" >
             <br>
@@ -96,7 +96,7 @@
             <form id="test" action="User?editUser=null" method="get"><button form="test" type="submit" value="cancel">Cancel</button></form>
         </c:if>
         <c:if test="${message != ''}">
-            <div>${message}</div>
+            <div style="color:red"><b>${message}</b></div>
         </c:if>    
 
     </body>

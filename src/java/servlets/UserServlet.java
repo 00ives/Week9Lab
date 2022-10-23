@@ -44,7 +44,8 @@ public class UserServlet extends HttpServlet {
             int editIndex = Integer.parseInt(editUser);
             User selectedUser = users.get(editIndex);
 //            User selectedUser = new User(users.get(editIndex));
-            req.setAttribute("selectedUser", selectedUser);
+//            req.setAttribute("selectedUser", selectedUser);
+            session.setAttribute("selectedUser", selectedUser);
             session.setAttribute("editIndex", editIndex);
         } else {
             editUser = null;
@@ -82,19 +83,22 @@ public class UserServlet extends HttpServlet {
         String lastName = req.getParameter("lastNameInput");
         String password = req.getParameter("passwordInput");
         String roleInput = req.getParameter("roleInput");
-        int editIndex = -1; 
+        int editIndex = -1;
 
 //        Role role = new Role(Integer.parseInt(roleInput));
         String addOrEdit = (String) session.getAttribute("addOrEdit");
         String message = "";
-        if (action.equals("Update")){
-               editIndex = (int) session.getAttribute("editIndex");
+        if (action.equals("Update")) {
+//            addOrEdit = "Edit User";
+            editIndex = (int) session.getAttribute("editIndex");
             email = users.get(editIndex).getEmail();
         }
         if (deleteIndex == null && (email.equals("") || firstName.equals("")
                 || lastName.equals("") || password.equals(""))) {
             //getting a null pointer error here for some reason
-
+            req.setAttribute("email", email);
+            req.setAttribute("firstName", firstName);
+            req.setAttribute("lastName", lastName);
             message = "Please fill out all fields";
         } else if (action.equals("Add user")) {
             try {
@@ -113,7 +117,7 @@ public class UserServlet extends HttpServlet {
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
 
         if (action.equals("deleteUser")) {
