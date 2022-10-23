@@ -24,6 +24,7 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         HttpSession session = req.getSession();
+//        session.getAttribute("message2");
         UserService userService = new UserService();
         String addOrEdit;
         List<User> users = null;
@@ -85,7 +86,8 @@ public class UserServlet extends HttpServlet {
 //        Role role = new Role(Integer.parseInt(roleInput));
         String addOrEdit = (String) session.getAttribute("addOrEdit");
         String message = "";
-        if(deleteIndex == null && email.equals("")){
+        if(deleteIndex == null && (email.equals("") || firstName.equals("") ||
+                                   lastName.equals("") || password.equals(""))){
             //getting a null pointer error here for some reason
             
            message = "Please fill out all fields";
@@ -118,6 +120,13 @@ public class UserServlet extends HttpServlet {
             users = userService.getAll();
 //            req.setAttribute("userList", users);
             session.setAttribute("userList", users);
+            String message2 = "";
+            if (users.isEmpty()){
+                 message2 = "No users found. Please add a user";
+            }else {
+                message2 = "";
+            }
+            session.setAttribute("message2", message2);
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             req.setAttribute("noUsersFound", "No Users Found");
