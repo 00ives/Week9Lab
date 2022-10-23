@@ -17,11 +17,26 @@ public class Role implements Serializable{
 
     public Role() {
     }
+    
+    
+    public Role(int id) {
+        this.id = id;
+        if (id == 1){
+            
+        this.name = "System Admin";
+        }else if (id == 2){
+        this.name = "Regular User";
+            
+        }
+    }
 
     public Role(int id, String name) {
         this.id = id;
         this.name = name;
     }
+    /*
+    change constructor to only take in the id and then handle the name or vice versa
+    */
 
     public int getId() {
         return id;

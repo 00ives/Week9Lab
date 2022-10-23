@@ -17,13 +17,13 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String password;
-    private Role role;
+    private int role;
 
     public User() {
         
     }
     
-    public User(String email, String firstName, String lastName, String password, Role role) {
+    public User(String email, String firstName, String lastName, String password, int role) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,14 +47,14 @@ public class User implements Serializable {
         return password;
     }
 
-    public Role getRole() {
+    public int getRole() {
         return role;
     }
     
-    public int getRoleId(){
-        return role.getId();
-        
-    }
+//    public int getRoleId(){
+//        return role.getId();
+//        
+//    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -72,7 +72,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public void setRole(Role role) {
+    public void setRole(int role) {
         this.role = role;
     }
 

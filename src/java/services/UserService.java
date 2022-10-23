@@ -7,6 +7,7 @@ package services;
 
 import dataaccess.UserDB;
 import java.util.List;
+import models.Role;
 import models.User;
 
 
@@ -22,5 +23,20 @@ public class UserService {
         
       return users;
   }
+    
+    public void insert(String email, String firstName, String lastName, String password, int role) throws Exception{
+        User user = new User(email, firstName, lastName, password, role);
+        UserDB userDB = new UserDB();
+        userDB.insert(user);
+        
+    }
+    
+    public void delete(User user) throws Exception{
+        UserDB userDB = new UserDB();
+        userDB.delete(user);
+    }
+    /*
+    get and it takes in an int
+    */
 
 }

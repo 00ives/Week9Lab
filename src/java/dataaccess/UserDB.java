@@ -37,14 +37,14 @@ public class UserDB {
                 String firstName = rs.getString(2);
                 String lastName = rs.getString(3);
                 String password = rs.getString(4);
-                int roleValue = rs.getInt(5);// need to replace this value with the value gained from the other table same as get method below
+                int role = rs.getInt(5);// need to replace this value with the value gained from the other table same as get method below
                 
-                Role role = null;
-                if(roleValue == 1){
-                    role = new Role(roleValue,"system admin");
-                }else if(roleValue == 2){
-                    role = new Role(roleValue,"egular user");
-                }
+//                Role role = null;
+//                if(roleValue == 1){
+//                    role = new Role(roleValue,"system admin");
+//                }else if(roleValue == 2){
+//                    role = new Role(roleValue,"egular user");
+//                }
 //                (1, 'system admin');
 //                (2, 'regular user');
              
@@ -77,14 +77,14 @@ public class UserDB {
                 String firstName = rs.getString(2);
                 String lastName = rs.getString(3);
                 String password = rs.getString(4);
-                int roleValue = rs.getInt(5);// this is where i want to replace the value
+                int role = rs.getInt(5);// this is where i want to replace the value
                 
-                Role role = null;
-                if(roleValue == 1){
-                    role = new Role(roleValue,"system admin");
-                }else if(roleValue == 2){
-                    role = new Role(roleValue,"egular user");
-                }
+//                Role role = null;
+//                if(roleValue == 1){
+//                    role = new Role(roleValue,"system admin");
+//                }else if(roleValue == 2){
+//                    role = new Role(roleValue,"egular user");
+//                }
 //                (1, 'system admin');
 //                (2, 'regular user');
              
@@ -112,7 +112,7 @@ public class UserDB {
             ps.setString(2, user.getFirstName());
             ps.setString(3, user.getLastName());
             ps.setString(4, user.getPassword());
-            ps.setInt(5, user.getRoleId());
+            ps.setInt(5, user.getRole());
             ps.executeUpdate();
              /*
             also need to change the role here to set it in 
@@ -136,7 +136,7 @@ public class UserDB {
             ps.setString(2, user.getFirstName());
             ps.setString(3, user.getLastName());
             ps.setString(4, user.getPassword());
-            ps.setInt(5, user.getRoleId());
+            ps.setInt(5, user.getRole());
             ps.executeUpdate();
             /*
             also need to change the role here to set it in 
