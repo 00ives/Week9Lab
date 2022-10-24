@@ -127,10 +127,24 @@ public class UserServlet extends HttpServlet {
 
         } else if (action.equals("Add user")) {
 
-            try {
-                userService.insert(email, firstName, lastName, password, Integer.parseInt(roleInput));
-            } catch (Exception ex) {
-                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            List<User> userList = (List<User>) session.getAttribute("userList");
+            Boolean exist = false;
+            for (int i = 0; i < userList.size(); i++) {
+                if (email.equals(userList.get(i).getEmail())) {
+                    exist = true;
+                    message = "Email already exists please use another email.";
+                    req.setAttribute("email", email);
+                    req.setAttribute("firstName", firstName);
+                    req.setAttribute("lastName", lastName);
+                }
+            }
+            if (!exist) {
+                try {
+                    userService.insert(email, firstName, lastName, password, Integer.parseInt(roleInput));
+                } catch (Exception ex) {
+                    Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
 
         } else if (action.equals("Update")) {
@@ -179,7 +193,7 @@ public class UserServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         session.setAttribute("userList", users);
         session.setAttribute("roleList", roleList);
 
