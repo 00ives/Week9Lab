@@ -29,15 +29,18 @@ public class UserServlet extends HttpServlet {
         String addOrEdit;
         List<User> users = null;
 
-        try {
-            users = userService.getAll();
-//            req.setAttribute("userList", users);
-            session.setAttribute("userList", users);
-        } catch (Exception ex) {
-            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-            req.setAttribute("noUsersFound", "No Users Found");
+//        try {
+//            users = userService.getAll();
+////            req.setAttribute("userList", users);
+//            session.setAttribute("userList", users);
+//        } catch (Exception ex) {
+//            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+//            req.setAttribute("noUsersFound", "No Users Found");
+//
+//        }
+        users = getUsers();
+        session.setAttribute("userList", users);
 
-        }
         String editUser = req.getParameter("editUser");
         if (editUser != null && !editUser.equals("")) {
             addOrEdit = "Edit User";
@@ -53,6 +56,7 @@ public class UserServlet extends HttpServlet {
         }
         session.setAttribute("addOrEdit", addOrEdit);
         req.setAttribute("editUser", editUser);
+
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(req, res);
     }
 
@@ -63,18 +67,21 @@ public class UserServlet extends HttpServlet {
         HttpSession session = req.getSession();
         UserService userService = new UserService();
         List<User> users = null;
-        try {
-            users = userService.getAll();
-//            req.setAttribute("userList", users);
-            session.setAttribute("userList", users);
-        } catch (Exception ex) {
-            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-            req.setAttribute("noUsersFound", "No Users Found");
+        
+//        try {
+//            users = userService.getAll();
+////            req.setAttribute("userList", users);
+//            session.setAttribute("userList", users);
+//        } catch (Exception ex) {
+//            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+//            req.setAttribute("noUsersFound", "No Users Found");
+//
+//        }
 
-        }
+        users = getUsers();
+        session.setAttribute("userList", users);
 
         String deleteIndex = req.getParameter("delete");
-//        String editUser = req.getParameter("editUser");
         req.setAttribute("deleteIndex", deleteIndex);
 
         String action = req.getParameter("action");
@@ -83,35 +90,37 @@ public class UserServlet extends HttpServlet {
         String lastName = req.getParameter("lastNameInput");
         String password = req.getParameter("passwordInput");
         String roleInput = req.getParameter("roleInput");
-        int editIndex = -1;
+        int editIndex;
 
 //        Role role = new Role(Integer.parseInt(roleInput));
         String addOrEdit = (String) session.getAttribute("addOrEdit");
         String message = "";
+        
         if (action.equals("Update")) {
-//            addOrEdit = "Edit User";
+            
             editIndex = (int) session.getAttribute("editIndex");
             email = users.get(editIndex).getEmail();
+            
         }
+        
         if (deleteIndex == null && (email.equals("") || firstName.equals("")
                 || lastName.equals("") || password.equals(""))) {
-            //getting a null pointer error here for some reason
+
             req.setAttribute("email", email);
             req.setAttribute("firstName", firstName);
             req.setAttribute("lastName", lastName);
             message = "Please fill out all fields";
+
         } else if (action.equals("Add user")) {
+
             try {
                 userService.insert(email, firstName, lastName, password, Integer.parseInt(roleInput));
-                /*
-                convert role here to the role object
-                 */
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         } else if (action.equals("Update")) {
 
-//                User editUser = users.get(editIndex);
             try {
                 userService.update(email, firstName, lastName, password, Integer.parseInt(roleInput));
             } catch (Exception ex) {
@@ -121,37 +130,59 @@ public class UserServlet extends HttpServlet {
         }
 
         if (action.equals("deleteUser")) {
+
             try {
                 User deleteUser = users.get(Integer.parseInt(deleteIndex));
                 userService.delete(deleteUser);
-                /*
-                convert role here to the role object
-                 */
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
 
         req.setAttribute("message", message);
 
-        try {
-            users = userService.getAll();
-//            req.setAttribute("userList", users);
-            session.setAttribute("userList", users);
-            String message2 = "";
-            if (users.isEmpty()) {
-                message2 = "No users found. Please add a user";
-            } else {
-                message2 = "";
-            }
-            session.setAttribute("message2", message2);
-        } catch (Exception ex) {
-            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-            req.setAttribute("noUsersFound", "No Users Found");
+//        try {
+//            users = userService.getAll();
+////            req.setAttribute("userList", users);
+//            session.setAttribute("userList", users);
+//            String message2 = "";
+//            if (users.isEmpty()) {
+//                message2 = "No users found. Please add a user";
+//            } else {
+//                message2 = "";
+//            }
+//            session.setAttribute("message2", message2);
+//        } catch (Exception ex) {
+//            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+//            req.setAttribute("noUsersFound", "No Users Found");
+//
+//        }
+        users = getUsers();
+        session.setAttribute("userList", users);
 
+        String message2 = "";
+
+        if (users.isEmpty()) {
+            message2 = "No users found. Please add a user";
+        } else {
+            message2 = "";
         }
+        session.setAttribute("message2", message2);
 
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(req, res);
+    }
+
+    public List<User> getUsers() {
+        List<User> users = null;
+        UserService userService = new UserService();
+        try {
+            users = userService.getAll();
+        } catch (Exception ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return users;
     }
 
 }

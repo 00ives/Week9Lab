@@ -30,14 +30,15 @@ public class UserDB {
         
         try {
             ps = con.prepareStatement(sql);
-//            ps.setString(1,hmmwhatisthisvlaue);
             rs = ps.executeQuery();
             while (rs.next()){
                 String email = rs.getString(1);
                 String firstName = rs.getString(2);
                 String lastName = rs.getString(3);
                 String password = rs.getString(4);
-                int role = rs.getInt(5);// need to replace this value with the value gained from the other table same as get method below
+                int role = rs.getInt(5);
+
+// need to replace this value with the value gained from the other table same as get method below
                 
 //                Role role = null;
 //                if(roleValue == 1){
