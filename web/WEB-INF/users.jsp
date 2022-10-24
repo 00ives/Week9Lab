@@ -74,10 +74,16 @@
             Password: <input type="password" name="passwordInput" >
             <br>
             Role: 
+            <!--<select name="roleInput" type="text">-->
+            <!--<option value="1">dont hardcode this value but for now System Admin</option>-->
+            <!--<option value="2">Regular User</option>-->
+            <!--</select>-->
+
 
             <select name="roleInput" type="text">
-                <option value="1">dont hardcode this value but for now System Admin</option>
-                <option value="2">Regular User</option>
+                <c:forEach items="${roles}" var="role" varStatus="loop">
+                    <option value="${loop.index + 1}">${role.getName()}</option>
+                </c:forEach>
             </select>
 
             <br>
@@ -97,7 +103,7 @@
         </c:if>
         <c:if test="${message != ''}">
             <div style="color:red"><b>${message}</b></div>
-        </c:if>    
+                </c:if>    
 
     </body>
 </html>

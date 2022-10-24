@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import models.Role;
 
 import models.User;
+import services.RoleService;
 import services.UserService;
 
 /**
@@ -25,9 +26,11 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = req.getSession();
 //        session.getAttribute("message2");
-        UserService userService = new UserService();
+        UserService userService = new UserService();// pretty sure i dont need this line anymore
+        RoleService roleService = new RoleService();
         String addOrEdit;
         List<User> users = null;
+        List<Role> roles = null;
 
 //        try {
 //            users = userService.getAll();
@@ -39,8 +42,16 @@ public class UserServlet extends HttpServlet {
 //
 //        }
         users = getUsers();
+        try {
+            roles = roleService.getAll();
+            
+            
+        } catch (Exception ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        session.setAttribute("roles", roles);
         session.setAttribute("userList", users);
-
+        
         String editUser = req.getParameter("editUser");
         if (editUser != null && !editUser.equals("")) {
             addOrEdit = "Edit User";
@@ -67,7 +78,7 @@ public class UserServlet extends HttpServlet {
         HttpSession session = req.getSession();
         UserService userService = new UserService();
         List<User> users = null;
-        
+
 //        try {
 //            users = userService.getAll();
 ////            req.setAttribute("userList", users);
@@ -77,7 +88,6 @@ public class UserServlet extends HttpServlet {
 //            req.setAttribute("noUsersFound", "No Users Found");
 //
 //        }
-
         users = getUsers();
         session.setAttribute("userList", users);
 
@@ -95,14 +105,14 @@ public class UserServlet extends HttpServlet {
 //        Role role = new Role(Integer.parseInt(roleInput));
         String addOrEdit = (String) session.getAttribute("addOrEdit");
         String message = "";
-        
+
         if (action.equals("Update")) {
-            
+
             editIndex = (int) session.getAttribute("editIndex");
             email = users.get(editIndex).getEmail();
-            
+
         }
-        
+
         if (deleteIndex == null && (email.equals("") || firstName.equals("")
                 || lastName.equals("") || password.equals(""))) {
 

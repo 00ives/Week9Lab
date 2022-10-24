@@ -100,7 +100,5 @@ public class RoleDB {
             cp.freeConnection(con);
         }
     }
-// at a get query for the number then replace the hard coded values in userDB
-    // with the value returned make sure the get method takes in the value from the role
-    // of the result set value
+
 }
