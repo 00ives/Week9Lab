@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,16 +43,19 @@ public class UserServlet extends HttpServlet {
 //
 //        }
         users = getUsers();
+        ArrayList<String> roleList = new ArrayList<>();
         try {
             roles = roleService.getAll();
-            
-            
+            roleList = getRoleList();
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         session.setAttribute("roles", roles);
         session.setAttribute("userList", users);
-        
+
+        session.setAttribute("roleList", roleList);
+
         String editUser = req.getParameter("editUser");
         if (editUser != null && !editUser.equals("")) {
             addOrEdit = "Edit User";
@@ -169,7 +173,15 @@ public class UserServlet extends HttpServlet {
 //
 //        }
         users = getUsers();
+        ArrayList<String> roleList = new ArrayList<>();
+        try {
+            roleList = getRoleList();
+        } catch (Exception ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         session.setAttribute("userList", users);
+        session.setAttribute("roleList", roleList);
 
         String message2 = "";
 
@@ -195,4 +207,15 @@ public class UserServlet extends HttpServlet {
         return users;
     }
 
+    public ArrayList getRoleList() throws Exception {
+        List<User> users = getUsers();
+        ArrayList<String> roleList = new ArrayList<>();
+        RoleService roleService = new RoleService();
+        for (int i = 0; i < users.size(); i++) {
+
+            roleList.add(roleService.get(users.get(i).getRole()).getName());
+        }
+
+        return roleList;
+    }
 }

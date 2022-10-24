@@ -33,7 +33,8 @@
                             <th>${user.getEmail()}</th>
                             <th>${user.getFirstName()}</th>
                             <th>${user.getLastName()}</th>
-                            <th>${user.getRole()}</th>
+                            <!--<th>${user.getRole()}</th>-->
+                            <th>${roleList.get(loop.index)}</th>
                             <th><a href="User?editUser=${loop.index}" >Edit</a></th>
                             <th>
                                 <form action="User?delete=${loop.index}" method="post" >
