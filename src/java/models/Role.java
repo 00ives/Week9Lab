@@ -11,22 +11,22 @@ import java.io.Serializable;
  *
  * @author ivorl
  */
-public class Role implements Serializable{
+public class Role implements Serializable {
+
     int id;
     String name;
 
     public Role() {
     }
-    
-    
+
     public Role(int id) {
         this.id = id;
-        if (id == 1){
-            
-        this.name = "System Admin";
-        }else if (id == 2){
-        this.name = "Regular User";
-            
+        if (id == 1) {
+
+            this.name = "System Admin";
+        } else if (id == 2) {
+            this.name = "Regular User";
+
         }
     }
 
@@ -34,9 +34,6 @@ public class Role implements Serializable{
         this.id = id;
         this.name = name;
     }
-    /*
-    change constructor to only take in the id and then handle the name or vice versa
-    */
 
     public int getId() {
         return id;
@@ -53,6 +50,4 @@ public class Role implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-    
-    
 }

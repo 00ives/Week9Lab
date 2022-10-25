@@ -48,8 +48,7 @@ public class UserServlet extends HttpServlet {
         String editUser = req.getParameter("editUser");
         if (editUser != null && !editUser.equals("")) {
             addOrEdit = "Edit User";
-            String roleInput = req.getParameter("roleInput");
-            
+
             int editIndex = Integer.parseInt(editUser);
             req.setAttribute("editIndex", editIndex);
             User selectedUser = users.get(editIndex);
@@ -167,7 +166,7 @@ public class UserServlet extends HttpServlet {
 
         if (users.isEmpty()) {
             message2 = "No users found. Please add a user";
-           session.setAttribute("addOrEdit", "Add User");
+            session.setAttribute("addOrEdit", "Add User");
         } else {
             message2 = "";
         }

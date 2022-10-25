@@ -12,7 +12,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Users</title>
     </head>
+    
     <body>
+        
         <h1>Manage Users</h1>
 
         <c:if test="${userList.size() > 0}">
@@ -27,6 +29,7 @@
                         <th></th>
                     </tr>
                 </thead>
+                
                 <tbody>
                     <c:forEach items="${userList}" var="user" varStatus="loop">
                         <tr style=" background-color: #96D4D4">
@@ -44,20 +47,19 @@
                         </tr>
                     </c:forEach>
                 </tbody>
-
-
             </table>
         </c:if>
+
         <c:if test="${userList.size() == 0}">
             <div><b>${message2}</b></div>
         </c:if>
-        <!--add functionality for if its add a user then 
-        display add user however when its edit user change txt to edit user-->
+
         <h2>${addOrEdit}</h2>
 
         <form  action="User" method="post">
 
             <c:choose>
+
                 <c:when test="${addOrEdit == 'Edit User'}">
                     <div>Email: ${selectedUser.getEmail()}</div>
                 </c:when>
@@ -66,6 +68,7 @@
                     Email: <input type="text" name="emailInput" value="${email}">
                     <br>
                 </c:otherwise>
+
             </c:choose>
 
             First name: <input type="text" name="firstNameInput" value="${firstName}">
@@ -75,7 +78,7 @@
             Password: <input type="password" name="passwordInput" >
             <br>
             Role: 
-           
+
             <select name="roleInput" type="text">
                 <c:forEach items="${roles}" var="role" varStatus="loop">
                     <option <c:if test="${addOrEdit == 'Edit User' && selectedUser.getRole() == (loop.index + 1)}">selected</c:if> value="${loop.index + 1}">${role.getName()}</option>
@@ -97,6 +100,7 @@
         <c:if test="${editUser != null || addOrEdit == 'Edit User'}">
             <form id="test" action="User?editUser=null" method="get"><button form="test" type="submit" value="cancel">Cancel</button></form>
         </c:if>
+
         <c:if test="${message != ''}">
             <div style="color:red"><b>${message}</b></div>
                 </c:if>    

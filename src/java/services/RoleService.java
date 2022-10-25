@@ -21,7 +21,6 @@ public class RoleService {
         List<Role> roles = roleDB.getAll();
 
         return roles;
-
     }
 
     public Role get(int id) throws Exception {
@@ -31,6 +30,4 @@ public class RoleService {
 
         return role;
     }
-    
-
 }

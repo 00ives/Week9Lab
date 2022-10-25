@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author ivorl
  */
 public class User implements Serializable {
-    
+
     private String email;
     private String firstName;
     private String lastName;
@@ -20,9 +20,9 @@ public class User implements Serializable {
     private int role;
 
     public User() {
-        
+
     }
-    
+
     public User(String email, String firstName, String lastName, String password, int role) {
         this.email = email;
         this.firstName = firstName;
@@ -50,11 +50,6 @@ public class User implements Serializable {
     public int getRole() {
         return role;
     }
-    
-//    public int getRoleId(){
-//        return role.getId();
-//        
-//    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -75,8 +70,4 @@ public class User implements Serializable {
     public void setRole(int role) {
         this.role = role;
     }
-
-    
-    
-    
 }

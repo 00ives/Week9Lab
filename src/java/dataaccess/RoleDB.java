@@ -55,9 +55,9 @@ public class RoleDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM role WHERE role_id = ?";
-        
+
         Role role = null;
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);

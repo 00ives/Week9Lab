@@ -14,19 +14,20 @@ import java.sql.Statement;
  * @author ivorl
  */
 public class DBUtil {
-    public static void closePreparedStatement(Statement ps){
+
+    public static void closePreparedStatement(Statement ps) {
         try {
-            if (ps != null){
+            if (ps != null) {
                 ps.close();
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
-    
-    public static void closeResultSet(ResultSet rs){
+
+    public static void closeResultSet(ResultSet rs) {
         try {
-            if (rs != null){
+            if (rs != null) {
                 rs.close();
             }
         } catch (SQLException e) {
