@@ -75,11 +75,7 @@
             Password: <input type="password" name="passwordInput" >
             <br>
             Role: 
-            <!--<select name="roleInput" type="text">-->
-            <!--<option value="1">dont hardcode this value but for now System Admin</option>-->
-            <!--<option value="2">Regular User</option>-->
-            <!--</select>-->
-
+           
             <select name="roleInput" type="text">
                 <c:forEach items="${roles}" var="role" varStatus="loop">
                     <option <c:if test="${addOrEdit == 'Edit User' && selectedUser.getRole() == (loop.index + 1)}">selected</c:if> value="${loop.index + 1}">${role.getName()}</option>

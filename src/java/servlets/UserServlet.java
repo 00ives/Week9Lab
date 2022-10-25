@@ -26,22 +26,11 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         HttpSession session = req.getSession();
-//        session.getAttribute("message2");
-        UserService userService = new UserService();// pretty sure i dont need this line anymore
         RoleService roleService = new RoleService();
         String addOrEdit;
         List<User> users = null;
         List<Role> roles = null;
 
-//        try {
-//            users = userService.getAll();
-////            req.setAttribute("userList", users);
-//            session.setAttribute("userList", users);
-//        } catch (Exception ex) {
-//            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-//            req.setAttribute("noUsersFound", "No Users Found");
-//
-//        }
         users = getUsers();
         ArrayList<String> roleList = new ArrayList<>();
         try {
@@ -64,8 +53,6 @@ public class UserServlet extends HttpServlet {
             int editIndex = Integer.parseInt(editUser);
             req.setAttribute("editIndex", editIndex);
             User selectedUser = users.get(editIndex);
-//            User selectedUser = new User(users.get(editIndex));
-//            req.setAttribute("selectedUser", selectedUser);
             req.setAttribute("selectedUser", selectedUser);
             session.setAttribute("editIndex", editIndex);
             req.setAttribute("firstName", users.get(editIndex).getFirstName());
@@ -88,15 +75,6 @@ public class UserServlet extends HttpServlet {
         UserService userService = new UserService();
         List<User> users = null;
 
-//        try {
-//            users = userService.getAll();
-////            req.setAttribute("userList", users);
-//            session.setAttribute("userList", users);
-//        } catch (Exception ex) {
-//            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-//            req.setAttribute("noUsersFound", "No Users Found");
-//
-//        }
         users = getUsers();
         session.setAttribute("userList", users);
 
@@ -111,7 +89,6 @@ public class UserServlet extends HttpServlet {
         String roleInput = req.getParameter("roleInput");
         int editIndex;
 
-//        Role role = new Role(Integer.parseInt(roleInput));
         String addOrEdit = (String) session.getAttribute("addOrEdit");
         String message = "";
 
@@ -175,22 +152,6 @@ public class UserServlet extends HttpServlet {
 
         req.setAttribute("message", message);
 
-//        try {
-//            users = userService.getAll();
-////            req.setAttribute("userList", users);
-//            session.setAttribute("userList", users);
-//            String message2 = "";
-//            if (users.isEmpty()) {
-//                message2 = "No users found. Please add a user";
-//            } else {
-//                message2 = "";
-//            }
-//            session.setAttribute("message2", message2);
-//        } catch (Exception ex) {
-//            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-//            req.setAttribute("noUsersFound", "No Users Found");
-//
-//        }
         users = getUsers();
         ArrayList<String> roleList = new ArrayList<>();
         try {
@@ -206,6 +167,7 @@ public class UserServlet extends HttpServlet {
 
         if (users.isEmpty()) {
             message2 = "No users found. Please add a user";
+           session.setAttribute("addOrEdit", "Add User");
         } else {
             message2 = "";
         }
