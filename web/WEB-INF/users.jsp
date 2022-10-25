@@ -80,10 +80,9 @@
             <!--<option value="2">Regular User</option>-->
             <!--</select>-->
 
-
             <select name="roleInput" type="text">
                 <c:forEach items="${roles}" var="role" varStatus="loop">
-                    <option value="${loop.index + 1}">${role.getName()}</option>
+                    <option <c:if test="${addOrEdit == 'Edit User' && selectedUser.getRole() == (loop.index + 1)}">selected</c:if> value="${loop.index + 1}">${role.getName()}</option>
                 </c:forEach>
             </select>
 

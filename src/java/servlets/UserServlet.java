@@ -59,12 +59,17 @@ public class UserServlet extends HttpServlet {
         String editUser = req.getParameter("editUser");
         if (editUser != null && !editUser.equals("")) {
             addOrEdit = "Edit User";
+            String roleInput = req.getParameter("roleInput");
+            
             int editIndex = Integer.parseInt(editUser);
+            req.setAttribute("editIndex", editIndex);
             User selectedUser = users.get(editIndex);
 //            User selectedUser = new User(users.get(editIndex));
 //            req.setAttribute("selectedUser", selectedUser);
-            session.setAttribute("selectedUser", selectedUser);
+            req.setAttribute("selectedUser", selectedUser);
             session.setAttribute("editIndex", editIndex);
+            req.setAttribute("firstName", users.get(editIndex).getFirstName());
+            req.setAttribute("lastName", users.get(editIndex).getLastName());
         } else {
             editUser = null;
             addOrEdit = "Add User";
