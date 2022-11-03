@@ -193,7 +193,8 @@ public class UserServlet extends HttpServlet {
         RoleService roleService = new RoleService();
         for (int i = 0; i < users.size(); i++) {
 
-            roleList.add(roleService.get(users.get(i).getRole()).getName());
+//            roleList.add(roleService.get(users.get(i).getRole()).getName());
+            roleList.add(roleService.get(users.get(i).getRole().getRoleId()).getRoleName());
         }
 
         return roleList;
